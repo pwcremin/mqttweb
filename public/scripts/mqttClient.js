@@ -134,7 +134,7 @@ mqttClient = (function ()
             } );
         },
 
-        createDevice: function ( name, callback )
+        createDevice: function ( deviceId, callback )
         {
             $.getJSON( '/devices/create?deviceId=' + deviceId, null, function ( data )
             {

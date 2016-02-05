@@ -32,7 +32,7 @@ var ScoreTable = React.createClass( {
 
     getInitialState()
     {
-        return { scores: [] }
+        return { scores: [], error: '' }
     },
 
     componentDidMount() {
@@ -51,7 +51,7 @@ var ScoreTable = React.createClass( {
         for ( var i = 0; i < this.state.scores.length; i++ ) {
             var data = this.state.scores[ i ];
             scoreNodes.push(
-                <Score name={data.player} rank={i} key={i} score={data.score}>
+                <Score name={data.player} rank={i+1} key={i} score={data.score}>
                 </Score>
             )
         }
@@ -102,11 +102,26 @@ var PlayerScoreInput = React.createClass( {
         var score = this.refs.score.getValue();
 
         if ( isNaN( score ) ) {
-            //console.log('you suck');
+
+            this.setState({error: 'the score must be a number'})
             return;
         }
 
+        if(!name)
+        {
+            this.setState({error: 'looks like you forgot the user'})
+
+            return;
+        }
+
+
         mqttClient.publishScore( name, score );
+
+        this.setState( {
+            scoreValue: '',
+            playerValue: '',
+            error: ''
+        } );
     },
 
     render(){
@@ -144,6 +159,8 @@ var PlayerScoreInput = React.createClass( {
                                      disabled={false}/>
                     </Col>
                 </Row>
+
+                <div><font color="red">{this.state.error}</font></div>
             </Panel>
         )
     }

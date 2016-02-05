@@ -73,8 +73,6 @@ var UserNameInput = React.createClass( {
 
     lookForDeviceInCookie()
     {
-        return null;
-
         var device = null;
 
         var cookie = this.getCookie( 'mqttdevice' );
