@@ -23,17 +23,36 @@ var IotAPI = function ()
 
         request( options, function ( error, response, body )
         {
-            if ( error )
-            {
+            if ( error ) {
                 console.log( error );
             }
-            else
-            {
-                console.log( response.statusCode, body );
+            else {
                 callback( response.statusCode, body );
             }
         } );
+    };
 
+    this.deleteDevice = function ( deviceId, callback )
+    {
+        var url = _host + "/device/types/tanks/devices";
+
+        var options = {
+            url: _host + "/device/types/tanks/devices/" + deviceId,
+            method: 'DELETE',
+            headers: {
+                "Authorization": _authorization
+            }
+        };
+
+        request( options, function ( error, response, body )
+        {
+            if ( error ) {
+                console.log( error );
+            }
+            else {
+                callback( response.statusCode, body );
+            }
+        } );
     }
 };
 

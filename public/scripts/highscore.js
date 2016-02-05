@@ -73,7 +73,7 @@ var ScoreTable = React.createClass( {
     }
 } );
 
-var PlayerScoreInput = React.createClass({
+var PlayerScoreInput = React.createClass( {
 
 
     getInitialState()
@@ -85,23 +85,12 @@ var PlayerScoreInput = React.createClass({
     },
 
     handleScoreChange() {
-        // This could also be done using ReactLink:
-        // http://facebook.github.io/react/docs/two-way-binding-helpers.html
-
-
-        console.log( "score: " + this.refs.score.getValue() );
-        console.log( this.state.scoreValue );
-
         this.setState( {
             scoreValue: this.refs.score.getValue()
         } );
     },
 
     handlePlayerChange() {
-
-        console.log( "player: " + this.refs.player.getValue() );
-        console.log( this.state.playerValue );
-
         this.setState( {
             playerValue: this.refs.player.getValue()
         } );
@@ -121,7 +110,7 @@ var PlayerScoreInput = React.createClass({
     },
 
     render(){
-        return(
+        return (
             <Panel header="Add a new score and watch the high score update" style={{margin:50}}>
                 <Row bordered>
                     <Col xs={6} lg={3}>
@@ -158,15 +147,28 @@ var PlayerScoreInput = React.createClass({
             </Panel>
         )
     }
-});
+} );
 
 var ScoreBox = React.createClass( {
     displayName: 'ScoreBox',
 
+    getInitialState()
+    {
+        return { visible: false }
+    },
+
+    componentWillMount()
+    {
+        mqttClient.registerListener( "connected", function ()
+        {
+            this.setState( { visible: true } )
+        }.bind( this ) )
+    },
+
     render ()
     {
         return (
-            <div>
+            <div style={{ display: this.state.visible ? 'block' : 'none'}}>
                 <div>
                     <PlayerScoreInput/>
                 </div>
@@ -179,5 +181,5 @@ var ScoreBox = React.createClass( {
     }
 } );
 
-ReactDOM.render( <ScoreBox />, document.getElementById( 'myBtn' ) );
+ReactDOM.render( <ScoreBox />, document.getElementById( 'highscore' ) );
 

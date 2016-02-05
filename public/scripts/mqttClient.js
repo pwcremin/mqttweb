@@ -51,6 +51,8 @@ mqttClient = (function ()
                 }
 
             } );
+
+            clientObserver.onMessage("connected", {});
         }
 
         // called when the client loses its connection
@@ -116,21 +118,74 @@ mqttClient = (function ()
     {
         $.getJSON( '/devices/create?deviceId=' + deviceId, null, function ( data )
         {
-            callback( data );
+            if ( data.exception ) {
+                console.log( data.message )
+                callback( data )
+            }
+            else {
+                callback( null, data );
+            }
         } );
     }
 
-
-    createDevice( makeid(), function ( deviceData )
+    function deleteDevice( deviceId, callback )
     {
-        console.log( "New device created: " + deviceData.clientId + ' : ' + deviceData.authToken );
+        $.ajax( {
+            url: '/devices?deviceId=' + deviceId,
+            type: 'DELETE',
+        }, function ( data )
+        {
+            callback( data )
+        } );
+    }
 
-        pahoClient.connect( deviceData.clientId, deviceData.authToken );
-    } );
-
+    var _device = null;
 
     return {
         registerListener: clientObserver.registerListener.bind( clientObserver ),
+
+        setDevice: function(device)
+        {
+            _device = device;
+
+            pahoClient.connect( _device.clientId, _device.authToken );
+        },
+
+        getDevice: function ()
+        {
+            console.log('device is ' + _device);
+            return _device;
+        },
+
+        deleteDevice: function ( callback )
+        {
+            console.log( "deleting device: " + _device.deviceId );
+            deleteDevice( _device.deviceId, callback )
+        },
+
+        createDevice: function ( name, callback )
+        {
+            createDevice( name, function ( error, deviceData )
+            {
+                if(error)
+                {
+                    callback(error);
+                    return;
+                }
+
+                _device = deviceData;
+
+                // TODO prob a better place to do this
+                document.cookie = 'mqttdevice=' + JSON.stringify(_device);
+
+                console.log( "New device created: " + _device.clientId + ' : ' + _device.authToken );
+
+                pahoClient.connect( _device.clientId, _device.authToken );
+
+                callback( null, _device );
+            } );
+        },
+
         publishScore: function ( player, score )
         {
             var payload = '{\"score\":' + score + ', \"player\":\"' + player + '\"}'; //JSON.stringify({'message':'hi'});
