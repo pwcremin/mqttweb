@@ -50,12 +50,15 @@ var UserNameInput = React.createClass( {
     {
         var name = this.refs.name.getValue();
 
-        mqttClient.createDevice( name, function ( error )
+        mqttClient.createDevice( name, function ( error, device )
         {
             if ( error ) {
                 this.setState( { failureMsg: error.message } )
             }
             else {
+
+                document.cookie = 'mqttdevice=' + JSON.stringify(device);
+
                 this.setState( { failureMsg: '' } )
                 console.log( 'user created' )
             }
