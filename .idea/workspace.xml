@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d53af711-b80e-4660-b71b-faaef95ce6e8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/scripts/createuser.js" afterPath="$PROJECT_DIR$/public/scripts/createuser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/scripts/highscore.js" afterPath="$PROJECT_DIR$/public/scripts/highscore.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/scripts/mqttClient.js" afterPath="$PROJECT_DIR$/public/scripts/mqttClient.js" />
     </list>
     <ignored path="mqttweb.iws" />
@@ -25,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="highscore.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="highscore.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/scripts/highscore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46978557">
-              <caret line="53" column="51" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
+            <state vertical-scroll-proportion="-0.6296296">
+              <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -48,18 +47,18 @@
       <file leaf-file-name="createuser.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/scripts/createuser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.37037">
-              <caret line="118" column="47" selection-start-line="118" selection-start-column="29" selection-end-line="118" selection-end-column="47" />
+            <state vertical-scroll-proportion="-15.148149">
+              <caret line="43" column="23" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mqttClient.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mqttClient.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/scripts/mqttClient.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.7740741">
+              <caret line="84" column="31" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -106,9 +105,9 @@
         <option value="$PROJECT_DIR$/iotApi.js" />
         <option value="$PROJECT_DIR$/routes/devices.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/public/scripts/mqttClient.js" />
-        <option value="$PROJECT_DIR$/public/scripts/createuser.js" />
         <option value="$PROJECT_DIR$/public/scripts/highscore.js" />
+        <option value="$PROJECT_DIR$/public/scripts/createuser.js" />
+        <option value="$PROJECT_DIR$/public/scripts/mqttClient.js" />
       </list>
     </option>
   </component>
@@ -392,14 +391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/mqttClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_cdnjs.cloudflare.com_ajax_libs_react_0.14.6_react.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.048148">
@@ -408,18 +399,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/createuser.js">
+    <entry file="file://$PROJECT_DIR$/public/scripts/highscore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.37037">
-          <caret line="118" column="47" selection-start-line="118" selection-start-column="29" selection-end-line="118" selection-end-column="47" />
+        <state vertical-scroll-proportion="-0.6296296">
+          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/highscore.js">
+    <entry file="file://$PROJECT_DIR$/public/scripts/createuser.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46978557">
-          <caret line="53" column="51" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
+        <state vertical-scroll-proportion="-15.148149">
+          <caret line="43" column="23" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/mqttClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7740741">
+          <caret line="84" column="31" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
           <folding />
         </state>
       </provider>

@@ -1,6 +1,7 @@
 mqttClient = (function ()
 {
     // partially implemented observer
+    // TODO find some event manager for this
     var clientObserver = {
         _subs: [],
         registerListener: function ( cmd, func )
@@ -28,31 +29,19 @@ mqttClient = (function ()
         var _organizationID = 'izto6k';
         var _client = null;
 
-        function onFailure( e )
+        function subscribeToAllCommands()
         {
-            console.log( 'failed to connect' );
-        }
-
-        // called when the client connects
-        function onConnect()
-        {
-            // Once a connection has been made, make a subscription and send a message.
-            console.log( 'onConnect' );
-
             _client.subscribe( 'iot-2/cmd/+/fmt/json', {
-                qos: 0,
                 onSuccess: function ()
                 {
-                    console.log( 'subscribe success' );
+                    console.log( 'subscribe to all commands: success' );
                 },
                 onFailure: function ()
                 {
-                    console.log( 'subscribe failure' );
+                    console.log( 'subscribe to all commands: failure' );
                 }
 
             } );
-
-            clientObserver.onMessage("connected", {});
         }
 
         // called when the client loses its connection
@@ -74,7 +63,7 @@ mqttClient = (function ()
             console.log( 'message sent: ' + message.destinationName );
         };
 
-        this.connect = function ( clientId, deviceToken )
+        this.connect = function ( clientId, deviceToken, callback )
         {
             var host = _organizationID + '.messaging.internetofthings.ibmcloud.com';
 
@@ -84,8 +73,17 @@ mqttClient = (function ()
                 userName: 'use-token-auth',
                 password: deviceToken,
                 timeout: 10000,
-                onSuccess: onConnect,
-                onFailure: onFailure
+                onSuccess: function()
+                {
+                    subscribeToAllCommands();
+                    clientObserver.onMessage("connected")
+                    callback(null);
+                },
+                onFailure: function()
+                {
+                    console.log( 'failed to connect' );
+                    callback({})
+                }
             } );
 
             _client.onConnectionLost = onConnectionLost;
@@ -108,19 +106,29 @@ mqttClient = (function ()
     return {
         registerListener: clientObserver.registerListener.bind( clientObserver ),
 
-        setDevice: function(device)
+        connectDevice: function ( device, callback )
         {
             _device = device;
 
-            pahoClient.connect( _device.clientId, _device.authToken );
+            pahoClient.connect( _device.clientId, _device.authToken, function(error)
+            {
+                if(!error)
+                {
+                    this.activateDevice();
+                }
+
+                callback(error);
+            }.bind(this));
         },
 
         getDevice: function ()
         {
-            console.log('device is ' + _device);
+            console.log( 'device is ' + _device );
+
             return _device;
         },
 
+        // TODO maybe leave the deleting and creating up to the server?
         deleteDevice: function ( callback )
         {
             console.log( "deleting device: " + _device.deviceId );
@@ -139,28 +147,38 @@ mqttClient = (function ()
             $.getJSON( '/devices/create?deviceId=' + deviceId, null, function ( data )
             {
                 if ( data.exception ) {
-                    console.log( data.message )
-                    callback( data )
+                    console.log( 'createDevice failed: ' + data.message );
+                    callback( data );
                 }
                 else {
 
-                    _device = data;
+                    console.log( "New device created: " + data.clientId );
 
-                    console.log( "New device created: " + _device.clientId + ' : ' + _device.authToken );
-
-                    pahoClient.connect( _device.clientId, _device.authToken );
+                    this.connectDevice(data);
 
                     callback( null, _device );
                 }
-            } );
+            }.bind(this) );
+        },
 
+        // Registers the device with the node-red 'activate' node so that we can easily
+        // send commands to all active devices
+        activateDevice: function ()
+        {
+            this.sendMessage( 'activate', '' );
         },
 
         publishScore: function ( player, score )
         {
             var payload = '{\"score\":' + score + ', \"player\":\"' + player + '\"}';
+
+            this.sendMessage( 'score', payload );
+        },
+
+        sendMessage: function ( eventType, payload )
+        {
             var message = new Paho.MQTT.Message( payload );
-            message.destinationName = 'iot-2/evt/score/fmt/json';
+            message.destinationName = 'iot-2/evt/' + eventType + '/fmt/json';
 
             pahoClient.send( message );
         },

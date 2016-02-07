@@ -30,13 +30,24 @@ var UserNameInput = React.createClass( {
         var device = this.lookForDeviceInCookie();
 
         if ( device ) {
-            mqttClient.setDevice( device )
-            this.setState( { visible: false } )
+            mqttClient.connectDevice( device, function( error)
+            {
+                if(!error)
+                {
+
+                    this.setState( { visible: false } );
+                }
+                else
+                {
+                    this.deleteCookie()
+                }
+            }.bind(this));
+
         }
 
         mqttClient.registerListener( "connected", function ()
         {
-            this.setState( { visible: false } )
+            this.setState( { visible: false } );
         }.bind( this ) )
     },
 
@@ -53,16 +64,23 @@ var UserNameInput = React.createClass( {
         mqttClient.createDevice( name, function ( error, device )
         {
             if ( error ) {
-                this.setState( { failureMsg: error.message } )
+                this.setState( { failureMsg: error.message } );
             }
             else {
 
                 document.cookie = 'mqttdevice=' + JSON.stringify(device);
 
-                this.setState( { failureMsg: '' } )
-                console.log( 'user created' )
+                this.setState( { failureMsg: '' } );
+                console.log( 'user created' );
+
             }
         }.bind( this ) );
+    },
+
+    deleteCookie()
+    {
+        var name = 'mqttdevice';
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     },
 
     getCookie( name ) {
