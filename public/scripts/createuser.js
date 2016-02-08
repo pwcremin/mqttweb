@@ -1,7 +1,7 @@
 // Create a client instance
 
 
-//React.render( React.createElement( ScoreBox, null ), document.getElementById( 'content' ) );
+//React.render( React.createElement( ChatBox, null ), document.getElementById( 'content' ) );
 
 var ButtonGroup = ReactBootstrap.ButtonGroup,
     Button = ReactBootstrap.Button,

@@ -1,7 +1,7 @@
 // Create a client instance
 
 
-//React.render( React.createElement( ScoreBox, null ), document.getElementById( 'content' ) );
+//React.render( React.createElement( ChatBox, null ), document.getElementById( 'content' ) );
 
 var ButtonGroup = ReactBootstrap.ButtonGroup,
     Button = ReactBootstrap.Button,
@@ -78,9 +78,12 @@ var PlayerScoreInput = React.createClass( {
 
     getInitialState()
     {
+        var device = mqttClient.getDevice();
+        var deviceId = device && device.deviceId;
+
         return {
-            scoreValue: '',
-            playerValue: ''
+            scoreValue: '1000',
+            playerValue: deviceId
         }
     },
 
@@ -103,13 +106,12 @@ var PlayerScoreInput = React.createClass( {
 
         if ( isNaN( score ) ) {
 
-            this.setState({error: 'the score must be a number'})
+            this.setState( { error: 'the score must be a number' } )
             return;
         }
 
-        if(!name)
-        {
-            this.setState({error: 'looks like you forgot the user'})
+        if ( !name ) {
+            this.setState( { error: 'looks like you forgot the user' } )
 
             return;
         }
@@ -126,7 +128,7 @@ var PlayerScoreInput = React.createClass( {
 
     render(){
         return (
-            <Panel header="Add a new score and watch the high score update" style={{margin:50}}>
+            <div>
                 <Row bordered>
                     <Col xs={6} lg={3}>
                         <Input
@@ -139,7 +141,7 @@ var PlayerScoreInput = React.createClass( {
                             hasFeedback
                             ref='player'
                             onChange={this.handlePlayerChange}
-                            style={{width:100, margin: 5}}
+                            style={{width:150, margin: 5}}
                         />
                     </Col>
                     <Col xs={6} lg={3}>
@@ -161,13 +163,13 @@ var PlayerScoreInput = React.createClass( {
                 </Row>
 
                 <div><font color="red">{this.state.error}</font></div>
-            </Panel>
+            </div>
         )
     }
 } );
 
 var ScoreBox = React.createClass( {
-    displayName: 'ScoreBox',
+    displayName: 'ChatBox',
 
     getInitialState()
     {
@@ -186,13 +188,16 @@ var ScoreBox = React.createClass( {
     {
         return (
             <div style={{ display: this.state.visible ? 'block' : 'none'}}>
-                <div>
-                    <PlayerScoreInput/>
-                </div>
-                <div className='scoreBox' style={{margin:50}}>
-                    <h1>High Scores</h1>
-                    <ScoreTable />
-                </div>
+                <Panel header="Add a new score and watch the high score update" style={{margin:50}}>
+                    <div>
+                        <PlayerScoreInput/>
+                    </div>
+                    <div className='scoreBox' style={{margin:50}}>
+                        <h1>High Scores</h1>
+                        <ScoreTable />
+                    </div>
+                </Panel>
+
             </div>
         );
     }

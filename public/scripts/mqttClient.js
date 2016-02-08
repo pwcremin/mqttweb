@@ -67,24 +67,27 @@ mqttClient = (function ()
         {
             var host = _organizationID + '.messaging.internetofthings.ibmcloud.com';
 
+            console.log( 'connecting to ' + host );
+
             _client = new Paho.MQTT.Client( host, 1883, clientId );
 
             _client.connect( {
                 userName: 'use-token-auth',
                 password: deviceToken,
                 timeout: 10000,
-                onSuccess: function()
+                onSuccess: function ()
                 {
                     subscribeToAllCommands();
-                    clientObserver.onMessage("connected")
-                    callback(null);
+                    clientObserver.onMessage( "connected" )
+                    callback( null );
                 },
-                onFailure: function()
+                onFailure: function ()
                 {
                     console.log( 'failed to connect' );
-                    callback({})
+                    callback( {} )
                 }
             } );
+
 
             _client.onConnectionLost = onConnectionLost;
             _client.onMessageArrived = function ( message )
@@ -92,7 +95,7 @@ mqttClient = (function ()
                 var cmdType = message.destinationName.split( '/' )[ 2 ];
                 var payload = JSON.parse( message.payloadString );
 
-                clientObserver.onMessage( cmdType, payload );
+                clientObserver.onMessage( cmdType, payload, message );
             };
         }
     };
@@ -110,21 +113,18 @@ mqttClient = (function ()
         {
             _device = device;
 
-            pahoClient.connect( _device.clientId, _device.authToken, function(error)
+            pahoClient.connect( _device.clientId, _device.authToken, function ( error )
             {
-                if(!error)
-                {
+                if ( !error ) {
                     this.activateDevice();
                 }
 
-                callback(error);
-            }.bind(this));
+                callback && callback( error );
+            }.bind( this ) );
         },
 
         getDevice: function ()
         {
-            console.log( 'device is ' + _device );
-
             return _device;
         },
 
@@ -154,11 +154,12 @@ mqttClient = (function ()
 
                     console.log( "New device created: " + data.clientId );
 
-                    this.connectDevice(data);
-
-                    callback( null, _device );
+                    this.connectDevice( data, function ( error )
+                    {
+                        callback( error, _device );
+                    } );
                 }
-            }.bind(this) );
+            }.bind( this ) );
         },
 
         // Registers the device with the node-red 'activate' node so that we can easily
@@ -175,6 +176,13 @@ mqttClient = (function ()
             this.sendMessage( 'score', payload );
         },
 
+        publishChat: function ( text )
+        {
+            var payload = '{\"text\":\"' + text + '\"}';
+
+            this.sendMessage( 'chat', payload );
+        },
+
         sendMessage: function ( eventType, payload )
         {
             var message = new Paho.MQTT.Message( payload );
@@ -186,6 +194,7 @@ mqttClient = (function ()
         cmdTypes: {
             highscore: 'highscore',
             message: 'message',
+            chat: 'chat'
         }
     }
 })();
