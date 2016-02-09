@@ -6,7 +6,7 @@ Login - Just select a username and a device is created for you.  With this you a
 
 Highscore board - Just add a player and their score.  Will auto update for all users.
 
-Chat - Send text and watch it update for all users.  By creating a Node-Red http endpoint that uses Watson Text to Speech, each chat message is automatically turned into audio.  Auto updates for all users
+Chat - Send text and watch it update for all users.  By creating a Node-Red http endpoint that uses Watson Text to Speech, each chat message is automatically turned into audio.
 https://github.com/watson-developer-cloud/node-red-labs/blob/master/basic_examples/text_to_speech/tts_lab_basic.json
 
 Image Analysis - analize an image - duh
