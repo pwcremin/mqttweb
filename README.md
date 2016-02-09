@@ -1,6 +1,6 @@
 # mqttweb
 
-Examples of how you have use IBM's Node-Red and IoT Foundation in your web apps.  Most examples are written using React.
+Examples of how to use IBM's Node-Red and IoT Foundation in your web apps.  Examples are written using React.
 
 Login - Just select a username and a device is created for you.  With this you are able to send mqtt messages to the server.
 
