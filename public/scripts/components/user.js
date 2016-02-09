@@ -1,5 +1,8 @@
-// Create a client instance
-
+var deviceManager = require( '../libs/deviceManager' ),
+    mqttClient = require( '../libs/mqttClient' ),
+    emitter = require( '../libs/emitter' ),
+    React = require('react'),
+    ReactBootstrap = require('react-bootstrap');
 
 //React.render( React.createElement( ChatBox, null ), document.getElementById( 'content' ) );
 
@@ -27,28 +30,16 @@ var UserNameInput = React.createClass( {
 
     componentWillMount()
     {
-        var device = this.lookForDeviceInCookie();
-
-        if ( device ) {
-            mqttClient.connectDevice( device, function( error)
-            {
-                if(!error)
-                {
-
-                    this.setState( { visible: false } );
-                }
-                else
-                {
-                    this.deleteCookie()
-                }
-            }.bind(this));
-
-        }
-
-        mqttClient.registerListener( "connected", function ()
+        emitter.addListener( 'mqtt-connected', function ()
         {
             this.setState( { visible: false } );
-        }.bind( this ) )
+        }.bind( this ) );
+
+        var device = deviceManager.getDevice();
+        if ( device )
+        {
+            mqttClient.connect( device );
+        }
     },
 
     handleNameChange() {
@@ -59,51 +50,27 @@ var UserNameInput = React.createClass( {
 
     onCreateUser()
     {
-        var name = this.refs.name.getValue();
+        var deviceId = this.refs.name.getValue();
 
-        mqttClient.createDevice( name, function ( error, device )
+        deviceManager.createDevice( deviceId, function ( error, device )
         {
-            if ( error ) {
+            if ( error )
+            {
                 this.setState( { failureMsg: error.message } );
             }
-            else {
-
-                document.cookie = 'mqttdevice=' + JSON.stringify(device);
+            else
+            {
+                mqttClient.connect( device );
 
                 this.setState( { failureMsg: '' } );
-                console.log( 'user created' );
-
             }
         }.bind( this ) );
     },
 
-    deleteCookie()
-    {
-        var name = 'mqttdevice';
-        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    },
-
-    getCookie( name ) {
-        var value = "; " + document.cookie;
-        var parts = value.split( "; " + name + "=" );
-        if ( parts.length == 2 ) return parts.pop().split( ";" ).shift();
-    },
-
-    lookForDeviceInCookie()
-    {
-        var device = null;
-
-        var cookie = this.getCookie( 'mqttdevice' );
-        if ( cookie ) {
-            device = JSON.parse( cookie );
-        }
-
-        return device;
-    },
 
     render(){
-        var device = mqttClient.getDevice();
-        var deviceId = device ? device.deviceId : "";
+        var device = deviceManager.getDevice();
+        var deviceId = device && device.deviceId;
 
         return (
             <div>
@@ -143,7 +110,6 @@ var UserNameInput = React.createClass( {
 } );
 
 var UserBox = React.createClass( {
-    displayName: 'UserBox',
 
     render ()
     {
@@ -155,5 +121,5 @@ var UserBox = React.createClass( {
     }
 } );
 
-ReactDOM.render( <UserBox/>, document.getElementById( 'createuser' ) );
+module.exports = UserBox;
 

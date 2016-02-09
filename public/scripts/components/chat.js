@@ -1,7 +1,8 @@
-// Create a client instance
-
-
-//React.render( React.createElement( ChatBox, null ), document.getElementById( 'content' ) );
+var deviceManager = require( '../libs/deviceManager' ),
+    mqttClient = require( '../libs/mqttClient' ),
+    emitter = require( '../libs/emitter' ),
+    React = require('react'),
+    ReactBootstrap = require('react-bootstrap');
 
 var ButtonGroup = ReactBootstrap.ButtonGroup,
     Button = ReactBootstrap.Button,
@@ -133,12 +134,12 @@ var ChatBox = React.createClass( {
 
     componentWillMount()
     {
-        mqttClient.registerListener( "connected", function ()
+        emitter.addListener( "mqtt-connected", function ()
         {
             this.setState( { visible: true } )
         }.bind( this ) )
 
-        mqttClient.registerListener( mqttClient.cmdTypes.chat, this.onChat );
+        emitter.addListener( 'chat', this.onChat );
     },
 
     onChat( message )
@@ -165,5 +166,5 @@ var ChatBox = React.createClass( {
     }
 } );
 
-ReactDOM.render( <ChatBox />, document.getElementById( 'chat' ) );
+module.exports = ChatBox;
 
