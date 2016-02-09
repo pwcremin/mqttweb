@@ -11,3 +11,5 @@ https://github.com/watson-developer-cloud/node-red-labs/blob/master/basic_exampl
 
 Image Analysis - analize an image - duh
 https://github.com/watson-developer-cloud/node-red-labs/blob/master/advanced_examples/alchemy_image_analysis_thumbs/alchvis_lab_webfaces_thumbs.json
+
+Note that the IoT Foundation uses MQTT over ports 1883 or 8883, which must not be blocked by your firewall.
