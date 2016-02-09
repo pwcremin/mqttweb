@@ -22,10 +22,6 @@ var ChatInput = React.createClass( {
         return { value: '' }
     },
 
-    componentDidMount()
-    {
-    },
-
     handleChange() {
         this.setState( {
             value: this.refs.text.getValue()
@@ -79,8 +75,8 @@ var Audio = React.createClass({
         }
 
         var src = "http://tanks.mybluemix.net/tts/sayit?text_to_say=" + this.props.message;
-
         console.log("src: " + src);
+
         return(
             <audio autoPlay>
                 <source src={src} type="audio/wav"/>
@@ -104,14 +100,6 @@ var ChatItem = React.createClass( {
 
 
 var ChatList = React.createClass( {
-    getInitialState()
-    {
-        return {}
-    },
-
-    componentDidMount()
-    {
-    },
 
     render ()
     {
@@ -121,10 +109,6 @@ var ChatList = React.createClass( {
                 <ChatItem user={message.id} message={message.text} key={i}/>
             )
         } );
-
-        var lastMessage = ""//(this.props.messages &&this.props.messages.length > 0) ?
-            //this.props.messages[this.props.message.length - 1].text : "";
-
 
         return (
             <div>
