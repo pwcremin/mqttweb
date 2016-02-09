@@ -9,5 +9,5 @@ Highscore board - Just add a player and their score.  Will auto update for all u
 Chat - Send text and watch it update for all users.  By creating a Node-Red http endpoint that uses Watson Text to Speech, each chat message is automatically turned into audio.  Auto updates for all users
 https://github.com/watson-developer-cloud/node-red-labs/blob/master/basic_examples/text_to_speech/tts_lab_basic.json
 
-Image Analysis - analize and image - duh
+Image Analysis - analize an image - duh
 https://github.com/watson-developer-cloud/node-red-labs/blob/master/advanced_examples/alchemy_image_analysis_thumbs/alchvis_lab_webfaces_thumbs.json
