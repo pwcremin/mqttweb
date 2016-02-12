@@ -4,7 +4,7 @@ var deviceManager = require( '../libs/deviceManager' ),
     React = require('react'),
     ReactBootstrap = require('react-bootstrap');
 
-//React.render( React.createElement( ChatBox, null ), document.getElementById( 'content' ) );
+//React.render( React.createElement( CandidateBox, null ), document.getElementById( 'content' ) );
 
 var ButtonGroup = ReactBootstrap.ButtonGroup,
     Button = ReactBootstrap.Button,

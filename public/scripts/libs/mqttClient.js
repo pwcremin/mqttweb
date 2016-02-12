@@ -17,6 +17,8 @@ var MqttClient = function ( )
 
             onSuccess: function ()
             {
+                this.publishActivate();
+
                 _client.subscribe( 'iot-2/cmd/+/fmt/json', {
                     onSuccess: function ()
                     {
@@ -57,6 +59,14 @@ var MqttClient = function ( )
         };
     };
 
+    function sendMessage ( eventType, payload )
+    {
+        var message = new Paho.MQTT.Message( payload );
+        message.destinationName = 'iot-2/evt/' + eventType + '/fmt/json';
+
+        _client.send( message );
+    }
+
     this.send = function ( message )
     {
         if ( !_client ) {
@@ -67,14 +77,6 @@ var MqttClient = function ( )
 
         _client.send( message );
     };
-
-    function sendMessage ( eventType, payload )
-    {
-        var message = new Paho.MQTT.Message( payload );
-        message.destinationName = 'iot-2/evt/' + eventType + '/fmt/json';
-
-        _client.send( message );
-    }
 
     this.publishScore = function ( player, score )
     {
@@ -88,6 +90,13 @@ var MqttClient = function ( )
         var payload = '{\"text\":\"' + text + '\"}';
 
         sendMessage( 'chat', payload );
+    };
+
+    this.publishActivate = function ()
+    {
+        var payload = '{}';
+
+        sendMessage( 'activate', payload );
     };
 };
 

@@ -170,7 +170,7 @@ var PlayerScoreInput = React.createClass( {
 } );
 
 var ScoreBox = React.createClass( {
-    displayName: 'ChatBox',
+    displayName: 'CandidateBox',
 
     getInitialState()
     {
