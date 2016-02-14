@@ -4,9 +4,9 @@
 
 Examples of how to use IBM's Node-Red and IoT Foundation in your web apps.  Examples are written using React.
 
-iotApi.js - communicates with the IoT API to create and delete devices
-/public/scripts/components - React component code for all examples
-/public/scripts/libs/mqttClient.js - wraps the Paho mqtt client and handles all messages
+>iotApi.js - communicates with the IoT API to create and delete devices
+>/public/scripts/components - React component code for all examples
+>/public/scripts/libs/mqttClient.js - wraps the Paho mqtt client and handles all messages
 
 ### User Management 
 Select a username and a device is created for you.  With this you are able to send mqtt messages to the server.
