@@ -14,7 +14,7 @@ var MqttClient = function ( )
             userName: 'use-token-auth',
             password: device.authToken,
             timeout: 10000,
-
+            keepAliveInterval: 65535,
             onSuccess: function ()
             {
                 this.publishActivate();

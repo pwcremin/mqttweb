@@ -15,6 +15,7 @@ var ButtonGroup = ReactBootstrap.ButtonGroup,
     Panel = ReactBootstrap.Panel,
     ButtonInput = ReactBootstrap.ButtonInput,
     ListGroup = ReactBootstrap.ListGroup,
+    Well = ReactBootstrap.Well,
     ListGroupItem = ReactBootstrap.ListGroupItem;
 
 var graph = {
@@ -29,7 +30,7 @@ var graph = {
         dataAxis: {
             left: {
                 range: {
-                    min: -2, max: 10
+                    min: -15, max: 15
                 }
             }
         },
@@ -89,7 +90,7 @@ var graph = {
         } );
 
         // TODO temp not removing old numbers just to see how long it can last
-        this.items.remove( oldIds );
+        //this.items.remove( oldIds );
 
         //setTimeout( addDataPoint, DELAY );
     },
@@ -242,9 +243,15 @@ var CandidateBox = React.createClass( {
 
     render ()
     {
+        var title = <h3>Candidate Tweet Sentiment Analysis</h3>
+
         return (
             <div style={{ margin:50, display: this.state.visible ? 'block' : 'none'}}>
-                <Panel header="By using Twitter and Sentiment analysis nodes we can analize the tweets about presidential candidates and tracks their moving average (1 hr window size). Give the graph a minute to start updating.">
+                <Panel header={title} bsStyle="success">
+                    <Well>
+                        By using Twitter and Sentiment analysis nodes we can analyze the tweets about presidential
+                        candidates and tracks their moving average.
+                    </Well>
                     <div id="Legend" class="external-legend"></div>
                     <div id="visualization"></div>
 

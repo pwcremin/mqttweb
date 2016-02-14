@@ -12,6 +12,7 @@ var ButtonGroup = ReactBootstrap.ButtonGroup,
     Row = ReactBootstrap.Row,
     Col = ReactBootstrap.Col,
     Panel = ReactBootstrap.Panel,
+    Well = ReactBootstrap.Well,
     ButtonInput = ReactBootstrap.ButtonInput;
 
 
@@ -187,9 +188,15 @@ var ScoreBox = React.createClass( {
 
     render ()
     {
+        var title  = <h3>High Score Board</h3>
         return (
             <div style={{ display: this.state.visible ? 'block' : 'none'}}>
-                <Panel header="Add a new score and watch the high score update" style={{margin:50}}>
+                <Panel header={title} bsStyle="warning" style={{margin:50}}>
+                    <Well>
+                        The high score board gives an example of how easy it is to send an event
+                        to the IoT server, manipulate the data, and broadcast it back to all users.
+                        This example was accomplished with 5 simple nodes in Node-RED.
+                    </Well>
                     <div>
                         <PlayerScoreInput/>
                     </div>

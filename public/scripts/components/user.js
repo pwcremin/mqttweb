@@ -14,6 +14,7 @@ var ButtonGroup = ReactBootstrap.ButtonGroup,
     Row = ReactBootstrap.Row,
     Col = ReactBootstrap.Col,
     Panel = ReactBootstrap.Panel,
+    Well = ReactBootstrap.Well,
     ButtonInput = ReactBootstrap.ButtonInput;
 
 
@@ -72,15 +73,22 @@ var UserNameInput = React.createClass( {
         var device = deviceManager.getDevice();
         var deviceId = device && device.deviceId;
 
+        var title = <h3>User Management</h3>
+
         return (
             <div>
                 <div style={{ display: this.state.visible ? 'none' : 'block'}}>
-                    <Panel header="User" style={{margin: 50}}>
+                    <Panel header={title} bsStyle="primary" style={{margin: 50}}>
                         Hi {deviceId}!
                     </Panel>
                 </div>
                 <div style={{display: this.state.visible ? 'block' : 'none'}}>
-                    <Panel header="First create a user (this will create your device)" style={{margin:50}}>
+                    <Panel header={title} bsStyle="primary" style={{margin:50}}>
+                        <Well>
+                            Using the IoT Platform API we can easily create devices.  In a hackathon
+                            you can use these devices to easily mock user management for a multi-user
+                            app such as a chat room or a multi player game.
+                        </Well>
                         <Row bordered>
                             <Col xs={6} lg={3}>
                                 <Input

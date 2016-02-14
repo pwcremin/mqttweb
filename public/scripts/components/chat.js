@@ -11,6 +11,7 @@ var ButtonGroup = ReactBootstrap.ButtonGroup,
     Grid = ReactBootstrap.Grid,
     Row = ReactBootstrap.Row,
     Col = ReactBootstrap.Col,
+    Well = ReactBootstrap.Well,
     Panel = ReactBootstrap.Panel,
     ButtonInput = ReactBootstrap.ButtonInput,
     ListGroup = ReactBootstrap.ListGroup,
@@ -155,9 +156,15 @@ var ChatBox = React.createClass( {
 
     render ()
     {
+        var title = <h3>Chat Room</h3>
         return (
             <div style={{ margin:50, display: this.state.visible ? 'block' : 'none'}}>
-                <Panel header="Chat with Watson Text to Speech">
+                <Panel header={title} bsStyle="danger" header="Chat with Watson Text to Speech">
+                    <Well>
+                        Adding any Watson service can instantly add a <img height="42" width="42" src="http://volpefirm.com/wp-content/uploads/2011/09/explosion-1-e1316302315964.png" />
+                        to your app.  Here we made a simple chat service, based of nodes similar to the high score example, but to make
+                        things interesting we also send the text to Watson Text to Speech.  Give it a try...
+                    </Well>
                     <ChatList messages={this.state.messages}/>
                     <ChatInput/>
                 </Panel>
