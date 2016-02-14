@@ -197,9 +197,17 @@ var CandidateBox = React.createClass( {
         }
 
         return {
-            visible: true,
+            visible: false,
             tweetCounts: tweetCounts
         }
+    },
+
+    componentWillMount()
+    {
+        emitter.addListener( "mqtt-connected", function ()
+        {
+            this.setState( { visible: true } )
+        }.bind( this ) )
     },
 
     componentDidMount()
