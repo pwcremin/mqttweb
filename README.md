@@ -1,5 +1,8 @@
 # mqttweb
 
+
+![alt text](https://avatars3.githubusercontent.com/u/5375661?v=3&s=400)
+
 [![Join the chat at https://gitter.im/pwcremin/mqttweb](https://badges.gitter.im/pwcremin/mqttweb.svg)](https://gitter.im/pwcremin/mqttweb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Examples of how to use IBM's Node-Red and IoT Foundation in your web apps.  Examples are written using React.
