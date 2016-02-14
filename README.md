@@ -1,5 +1,7 @@
 # mqttweb
 
+[![Join the chat at https://gitter.im/pwcremin/mqttweb](https://badges.gitter.im/pwcremin/mqttweb.svg)](https://gitter.im/pwcremin/mqttweb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Examples of how to use IBM's Node-Red and IoT Foundation in your web apps.  Examples are written using React.
 
 Login - Just select a username and a device is created for you.  With this you are able to send mqtt messages to the server.
