@@ -92,6 +92,13 @@ var MqttClient = function ( )
         sendMessage( 'chat', payload );
     };
 
+    this.publishJunk = function ( text )
+    {
+        var payload = '{\"text\":\"' + text + '\"}';
+
+        sendMessage( 'junk', payload );
+    };
+
     this.publishActivate = function ()
     {
         var payload = '{}';

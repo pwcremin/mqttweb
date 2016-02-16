@@ -10,7 +10,8 @@ var mqttClient = require( './libs/mqttClient' ),
     User = require( './components/user' ),
     HighScore = require('./components/highscore' ),
     Chat = require('./components/chat' ),
-    Candidate = require('./components/candidateScore');
+    Candidate = require('./components/candidateScore'),
+    Template = require('./components/template');
 
 
 
@@ -18,3 +19,4 @@ ReactDom.render( <User/>, document.getElementById( 'user' ) );
 ReactDom.render( <HighScore />, document.getElementById( 'highscore' ) );
 ReactDom.render( <Chat />, document.getElementById( 'chat' ) );
 ReactDom.render( <Candidate />, document.getElementById( 'candidate' ) );
+ReactDom.render( <Template />, document.getElementById( 'template' ) );

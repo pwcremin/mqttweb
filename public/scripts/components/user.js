@@ -86,7 +86,7 @@ var UserNameInput = React.createClass( {
                     <Panel header={title} bsStyle="primary" style={{margin:50}}>
                         <Well>
                             Using the IoT Platform API we can easily create devices.  In a hackathon
-                            you can use these devices to easily mock user management for a multi-user
+                            you can use these devices to mock user management for a multi-user
                             app such as a chat room or a multi player game.
                         </Well>
                         <Row bordered>
